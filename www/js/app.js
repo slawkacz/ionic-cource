@@ -16,7 +16,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services']).
             StatusBar.styleLightContent();
         }
     });
-}).config(function($stateProvider, $urlRouterProvider) {
+})
+.constant('API_URL', 'https://www.kimonolabs.com/api/5yzdbj0s?apikey=joyvk1EdYr45g8O9BIB6z5qCFItdB0BE')
+.config(function($stateProvider, $urlRouterProvider) {
     // Ionic uses AngularUI Router which uses the concept of states
     // Learn more here: https://github.com/angular-ui/ui-router
     // Set up the various states which the app can be in.
