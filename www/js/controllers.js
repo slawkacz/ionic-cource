@@ -19,5 +19,11 @@ angular.module('starter.controllers', []).controller('PhotosCtrl', function($sco
         });
         return defer.promise;
     };
+     $scope.onSwipeUp = function() {
+        Photos.rate($scope.photo.image.src, 1).then(setPhotoOnStage);
+    };
+    $scope.onSwipeDown = function() {
+        Photos.rate($scope.photo.image.src, -1).then(setPhotoOnStage);
+    };
     setPhotoOnStage();
 }).controller('RatedCtrl', function($scope) {});
