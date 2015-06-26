@@ -33,7 +33,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services']).
             url: '/photos',
             views: {
                 'tab-photos': {
-                    templateUrl: 'templates/tabs-photos.html',
+                    templateUrl: 'templates/tab-photos.html',
                     controller: 'PhotosCtrl'
                 }
             }
@@ -41,7 +41,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services']).
             url: '/rated',
             views: {
                 'tab-rated': {
-                    templateUrl: 'templates/tabs-rated.html',
+                    templateUrl: 'templates/tab-rated.html',
                     controller: 'RatedCtrl'
                 }
             }
