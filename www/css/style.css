@@ -18,4 +18,16 @@
     left: 50%;
     position: fixed;
 }
-/* Empty. Add your own CSS if you like */
+
+.rate-icon {
+    font-size: 200px;
+    color: #fff;
+}
+
+.rated-photo {
+    text-align: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: black;
+    background-position: center center;
+}

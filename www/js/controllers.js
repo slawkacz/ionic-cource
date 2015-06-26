@@ -1,4 +1,4 @@
-angular.module('starter.controllers', []).controller('PhotosCtrl', function($scope, $ionicLoading, , $cordovaToast, $cordovaVibration, Photos, $q) {
+angular.module('starter.controllers', []).controller('PhotosCtrl', function($scope, $ionicLoading, $cordovaToast, $cordovaVibration, Photos, $q) {
     $scope.photos = [];
     $scope.photo;
     var setPhotoOnStage = function() {
@@ -32,4 +32,15 @@ angular.module('starter.controllers', []).controller('PhotosCtrl', function($sco
         Photos.rate($scope.photo.image.src, -1).then(throwToast.bind(this, false)).then(setPhotoOnStage);
     };
     setPhotoOnStage();
-}).controller('RatedCtrl', function($scope) {});
+}).controller('RatedCtrl', function(Photos, $ionicLoading, $scope) {
+    $ionicLoading.show({
+        template: '<ion-spinner icon="android"></ion-spinner>'
+    });
+    $scope.photos = [];
+    Photos.getRated().then(function(images) {
+        $scope.photos = images;
+        $ionicLoading.hide();
+    }).catch(function(e) {
+        $ionicLoading.hide();
+    });
+});
