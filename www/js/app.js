@@ -4,10 +4,16 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services']).run(function($ionicPlatform) {
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova']).run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
+        if (!navigator.notification) navigator.notification = window.plugins = {
+            vibrate: console.log.bind(console),
+            toast: {
+                show: alert.bind(window)
+            }
+        }
         if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
             cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
         }
@@ -16,9 +22,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services']).
             StatusBar.styleLightContent();
         }
     });
-})
-.constant('API_URL', 'https://www.kimonolabs.com/api/5yzdbj0s?apikey=joyvk1EdYr45g8O9BIB6z5qCFItdB0BE')
-.config(function($stateProvider, $urlRouterProvider) {
+}).constant('API_URL', 'https://www.kimonolabs.com/api/5yzdbj0s?apikey=joyvk1EdYr45g8O9BIB6z5qCFItdB0BE').config(function($stateProvider, $urlRouterProvider) {
     // Ionic uses AngularUI Router which uses the concept of states
     // Learn more here: https://github.com/angular-ui/ui-router
     // Set up the various states which the app can be in.

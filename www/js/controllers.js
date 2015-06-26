@@ -1,4 +1,4 @@
-angular.module('starter.controllers', []).controller('PhotosCtrl', function($scope, $ionicLoading, Photos, $q) {
+angular.module('starter.controllers', []).controller('PhotosCtrl', function($scope, $ionicLoading, , $cordovaToast, $cordovaVibration, Photos, $q) {
     $scope.photos = [];
     $scope.photo;
     var setPhotoOnStage = function() {
@@ -19,11 +19,17 @@ angular.module('starter.controllers', []).controller('PhotosCtrl', function($sco
         });
         return defer.promise;
     };
-     $scope.onSwipeUp = function() {
-        Photos.rate($scope.photo.image.src, 1).then(setPhotoOnStage);
+     var throwToast = function(rate) {
+        $cordovaVibration.vibrate(100);
+        var msg = 'You like it! Cool!';
+        if (!rate) msg = 'Thats wierd! I dont like it!';
+        $cordovaToast.show(msg, 'short', 'top');
+    }
+    $scope.onSwipeUp = function() {
+        Photos.rate($scope.photo.image.src, 1).then(throwToast.bind(this, true)).then(setPhotoOnStage);
     };
     $scope.onSwipeDown = function() {
-        Photos.rate($scope.photo.image.src, -1).then(setPhotoOnStage);
+        Photos.rate($scope.photo.image.src, -1).then(throwToast.bind(this, false)).then(setPhotoOnStage);
     };
     setPhotoOnStage();
 }).controller('RatedCtrl', function($scope) {});
