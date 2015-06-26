@@ -46,4 +46,47 @@ angular.module('starter.services', []).factory('$localstorage', ['$window',
             return true;
         }
     }
-})
+}).factory('Photos', function($http, API_URL, Storage, $q) {
+    var getFromStorage = function() {
+        var deffered = $q.defer();
+        var unRatedPhotos = Storage.getUnrated();
+        if (unRatedPhotos.length) {
+            deffered.resolve(unRatedPhotos)
+        } else {
+            var lastOffset = Storage.getLastOffset();
+            deffered.reject(lastOffset)
+        }
+        return deffered.promise;
+    };
+    var fetchFromServer = function(offset) {
+        var deffered = $q.defer();
+        $http.get(API_URL + '&kimlimit=5&kimoffset=' + offset).then(function(res) {
+            Storage.setUnrated(res.data.results.collection1, res.data.results.collection1.length);
+            return deffered.resolve(res.data.results.collection1);
+        }, deffered.reject);
+        return deffered.promise;
+    };
+    var getRated = function(){
+        var deffered = $q.defer();
+        var ratedPhotos = Storage.getRated();
+        if (ratedPhotos.length) {
+            deffered.resolve(ratedPhotos)
+        } else {
+            deffered.reject('No photos')
+        }
+        return deffered.promise;
+    };
+    return {
+        getPhotos: function() {
+            var deffered = $q.defer();
+            getFromStorage().then(deffered.resolve, fetchFromServer).then(deffered.resolve);
+            return deffered.promise;
+        },
+        getRated: getRated,
+        rate: function(imgSrc, vote) {
+            var deffered = $q.defer();
+            deffered.resolve(Storage.rateImage(imgSrc, vote));
+            return deffered.promise;
+        },
+    }
+});
