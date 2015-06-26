@@ -1,1 +1,21 @@
+.scroll {
+    height: 100%;
+}
+
+.content {
+    background: #000;
+}
+
+.photo-wrapper {
+    background: #000 no-repeat center center;
+    background-size: contain;
+    height: 100%;
+    width: 100%;
+}
+
+.spiner {
+    top: 50%;
+    left: 50%;
+    position: fixed;
+}
 /* Empty. Add your own CSS if you like */
